@@ -69,7 +69,9 @@ exports.up = function (knex) {
         .specificType("messages", "int ARRAY")
         .unsigned()
         .references("id")
-        .inTable("messages");
+        .inTable("messages")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
     });
 };
 
