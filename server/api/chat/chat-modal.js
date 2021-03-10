@@ -1,22 +1,19 @@
-const db = require('../../data/connection')
+const db = require("../../data/connection");
 
-function getAllChats(){
-    return db('chat')
+function getAllChats() {
+  return db("chat");
 }
 
-function getChat(id){
-    return db('chat').where(id)
+function getChat(id) {
+  return db("chat").where(id);
 }
 
-function userChat(userid){
-    return db('chat as c')
-    .join('users as u', 'c.users', '=', 'u.id')
-    .select('*')
-    .where('c.users', userid)
+function userChat(chatid) {
+  return db("messages as m").select("*").where("m.chat", "=", chatid);
 }
 
 module.exports = {
-    getAllChats,
-    getChat,
-    userChat
-}
+  getAllChats,
+  getChat,
+  userChat,
+};
