@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Button, Checkbox, Form, Input } from "semantic-ui-react";
+import axios from "axios";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const initialState = {
   email: "",
@@ -16,7 +18,14 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Credentials ===> ", form);
+    axios
+      .post("http://localhost:8000/auth/login", form)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     setForm(initialState);
   };
 
