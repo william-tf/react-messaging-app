@@ -41,6 +41,16 @@ exports.up = function(knex) {
       .references('id').inTable('group')
       .onDelete('CASCADE').onUpdate('CASCADE')
   })
+  .createTable('chat', tbl => {
+    tbl.increments('id')
+    tbl.specificType('users', 'int ARRAY')
+    .unsigned()
+    .references('id').inTable('users')
+    .onDelete('CASCADE').onUpdate('CASCADE')
+    tbl.specificType('messages', 'int ARRAY')
+    .unsigned()
+    .references('id').inTable('messages')
+  })
 };
 
 exports.down = function(knex) {

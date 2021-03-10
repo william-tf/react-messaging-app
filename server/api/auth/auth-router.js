@@ -16,6 +16,7 @@ router.post('/signup', (req, res) => {
         .then(user => {
             res.status(201).json({data:user})
         })
+        .catch(err => res.status(500).json({message: err.message}))
     }
 })
 
