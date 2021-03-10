@@ -2,9 +2,16 @@
 
 module.exports = {
   development: {
-    client: "postgresql",
+    client: "sqlite3",
+    useNullAsDefault: true,
     connection: {
-      filename: "./dev.postgresql",
+      filename: "./data/dev.db3",
+    },
+    migrations: {
+      directory: "./migrations",
+    },
+    seeds:{
+      directory: './seeds'
     },
   },
 
@@ -14,13 +21,6 @@ module.exports = {
       database: "my_db",
       user: "username",
       password: "password",
-    },
-    pool: {
-      min: 2,
-      max: 10,
-    },
-    migrations: {
-      tableName: "knex_migrations",
     },
   },
 
