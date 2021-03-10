@@ -12,8 +12,8 @@ router.get('/allmsg', (req, res) => {
 })
 router.get('/messages/:id', (req, res) => {
     const id = req.params.id
-    const userID = [id]
-    Chat.userChat(userID)
+    
+    Chat.userChat(id)
     .then(info => {
         console.log(info)
         res.status(200).json(info)

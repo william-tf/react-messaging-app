@@ -17,6 +17,8 @@ router.post('/signup', (req, res) => {
             res.status(201).json({data:user})
         })
         .catch(err => res.status(500).json({message: err.message}))
+    } else{
+        res.status(401).json('wrong credentials')
     }
 })
 
