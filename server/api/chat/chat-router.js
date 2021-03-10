@@ -65,16 +65,20 @@ router.put("/chat/:id", (req, res) => {
     });
 });
 
-router.get("/msg/:id", (req, res) => {
-  const id = req.params.id;
-  Chat.getChat(id)
-    .then((chatid) => {
-      console.log(chatid);
-      res.status(200).json(chatid);
-    })
-    .catch((err) => console.log(err));
+router.delete("/chat/:id", (req, res) => {
+  try {
+    Chat.getChat(req.params.id).then((chat) => {
+      console.log("CHAT RETURNED FROM VALID===> ", chat);
+      Chat.deleteChat(chat[0].id).then(() => {
+        res.status(204).json({ message: `Chat with id ${chat.id} deleted.` });
+      });
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: `Could not delete chat with id ${id}`,
+      error: err.message,
+    });
+  }
 });
-
-module.exports = router;
 
 module.exports = router;
