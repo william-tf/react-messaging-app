@@ -12,6 +12,7 @@ exports.up = function(knex) {
       tbl.specificType('messageid', 'int ARRAY')
       .unsigned()
       .references('messageid').inTable('messages')
+      .onDelete('CASCADE').onUpdate('CASCADE')
       tbl.timestamp('created_at').defaultTo(knex.fn.now())
       tbl.specificType('groups', "int ARRAY")
       .unsigned()
@@ -23,6 +24,7 @@ exports.up = function(knex) {
       tbl.integer('admin')
       .unsigned()
       .references('id').inTable('user')
+      .onDelete('CASCADE').onUpdate('CASCADE')
       tbl.timestamp('created_at').defaultTo(knex.fn.now())
       tbl.specificType('messages', 'int ARRAY')
       .unsigned()
@@ -50,6 +52,7 @@ exports.up = function(knex) {
     tbl.specificType('messages', 'int ARRAY')
     .unsigned()
     .references('id').inTable('messages')
+    .onDelete('CASCADE').onUpdate('CASCADE')
   })
 };
 

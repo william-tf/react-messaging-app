@@ -6,7 +6,8 @@ function allUsers(){
 
 function getUser(id){
     return db('users')
-    .where(id)
+    .where({id})
+    .first()
 }
 
 function addUser(user){

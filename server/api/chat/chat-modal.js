@@ -5,15 +5,19 @@ function getAllChats(){
 }
 
 function getChat(id){
-    return db('chat').where(id)
+    return db('chat')
+    .where({id})
+    .first()
 }
 
 function userChat(userid){
     return db('chat as c')
-    .join('users as u', 'c.users', '=', 'u.id')
-    .select('*')
-    .where('c.users', userid)
+    .join('messages as m', 'm.id')
+    .onIn('c.messages')
+    .select('m.messageText')
+    //.where('c.users', {userid})
 }
+//we want chatID that includes the specific users
 
 module.exports = {
     getAllChats,

@@ -10,8 +10,9 @@ router.get('/all', (req, res) =>{
     .catch(err => console.log(err))
 })
 
-router.get('/', (req, res) => {
-    User.getUser()
+router.get('/user/:id', (req, res) => {
+    const id = req.params.id
+    User.getUser(id)
     .then(user => {
         res.status(200).json(user)
     })
