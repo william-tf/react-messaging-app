@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Checkbox, Form, Input } from "semantic-ui-react";
+import axios from "axios";
 
 const initialState = {
   firstName: "",
@@ -19,7 +20,14 @@ export default function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("New User ==> ", form);
+    axios
+      .post("http://localhost:8000/auth/signup", form)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     setForm(initialState);
   };
 
