@@ -5,7 +5,7 @@ const cors = require("cors")
 const userRouter = require('./users/users-router')
 const groupRouter = require('./groups/groups-router')
 const messageRouter = require('./messages/messages-router')
-
+const authRouter = require('./auth/auth-router')
 
 app.use(express.json())
 app.use(helmet())
@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 app.use('/users', userRouter)
 app.use('/groups', groupRouter)
 app.use('/messages', messageRouter)
-
+app.use('/auth', authRouter)
 
 
 module.exports = app
