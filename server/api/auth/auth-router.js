@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
@@ -5,6 +6,15 @@ const createToken = require("./createToken");
 const { isValid } = require("../middleware/username-validation");
 const tokenValidation = require("../middleware/restricted-validation");
 const User = require("../users/users-modal");
+=======
+const express = require('express');
+const router = express.Router()
+const bcrypt = require('bcryptjs')
+const createToken = require('./createToken')
+const {isValid} = require('../middleware/username-validation')
+const tokenValidation = require('../middleware/restricted-validation')
+const User = require('../users/users-modal')
+>>>>>>> 590ec179b1235fa54a98dd6fb62a8f3d18ac7774
 
 router.post("/signup", (req, res) => {
   const credentials = req.body;
