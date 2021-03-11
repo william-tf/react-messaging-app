@@ -93,3 +93,58 @@ export const deleteUserById = (userId) => {
       return err;
     });
 };
+
+export const getAllChatMessages = (chatId) => {
+  return axiosWithAuth()
+    .get(`/messages/chat/${chatId}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getMessageById = (messageId) => {
+  return axiosWithAuth()
+    .get(`/messages/${messageId}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const addMessage = (newMessage) => {
+  return axiosWithAuth()
+    .post("/messages/messages", newMessage)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const editMessageById = (messageId, editedMessage) => {
+  return axiosWithAuth()
+    .put(`/messages/${messageId}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const deleteMessageById = (messageId) => {
+  return axiosWithAuth()
+    .delete(`/messages/${messageId}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
