@@ -65,19 +65,6 @@ router.put("/chat/:id", (req, res) => {
     });
 });
 
-<<<<<<< HEAD
-router.get('/msg/:id', (req, res) => {
-    const id = req.params.id
-    Chat.getChat(id)
-    .then(chatid => {
-        console.log(chatid)
-        res.status(200).json(chatid)
-    })
-    .catch(err => console.log(err))
-})
-
-module.exports = router
-=======
 router.delete("/chat/:id", (req, res) => {
   try {
     Chat.getChat(req.params.id).then((chat) => {
@@ -93,6 +80,5 @@ router.delete("/chat/:id", (req, res) => {
     });
   }
 });
->>>>>>> abba2f4bfd9479cdcdebae9d9f19c6c4a137225b
 
 module.exports = router;

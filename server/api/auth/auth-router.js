@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const createToken = require('./createToken')
-const isValid = require('../middleware/username-validation')
+const {isValid} = require('../middleware/username-validation')
 const tokenValidation = require('../middleware/restricted-validation')
 const User = require('../users/users-modal')
 
