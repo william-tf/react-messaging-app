@@ -69,7 +69,7 @@ router.delete("/:id", (req, res) => {
   }
 });
 
-router.post("/:id", (req, res) => {
+router.post("/messages", (req, res) => {
   Message.createMsg(req.body)
     .then((msg) => {
       res.status(201).json({ message: "messaged created :)" });
