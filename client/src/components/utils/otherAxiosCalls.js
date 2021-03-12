@@ -148,3 +148,58 @@ export const deleteMessageById = (messageId) => {
       return err;
     });
 };
+
+export const getChatById = (chatId) => {
+  return axiosWithAuth()
+    .get(`/chats/chat/${chatId}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const getAllUsersChats = (userId) => {
+  return axiosWithAuth()
+    .get(`/chats/chat/user/${userId}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const addNewChat = (newChat) => {
+  return axiosWithAuth()
+    .post("/chats/chats", newChat)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const editChatbyId = (chatId, editedChat) => {
+  return axiosWithAuth()
+    .put(`/chats/chat/${chatId}`, editedChat)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+export const deleteChatById = (chatId) => {
+  return axiosWithAuth()
+    .delete(`/chats/chat/${chatId}`)
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
