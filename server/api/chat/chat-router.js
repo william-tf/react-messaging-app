@@ -27,6 +27,8 @@ router.get("/chat/:id/messages", (req, res) => {
     .catch((err) => res.status(500).json({ message: err.message }));
 });
 
+router.get("");
+
 router.post("/chats", (req, res) => {
   if (isValid(req.body)) {
     Chat.addChat(req.body)

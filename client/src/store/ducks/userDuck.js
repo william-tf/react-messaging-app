@@ -43,7 +43,7 @@ export const userActions = {
         dispatch({ type: types.LOGIN_SUCCESS });
       })
       .catch((err) => {
-        dispatch({ type: types.LOGIN_ERROR, payload: err });
+        dispatch({ type: types.LOGIN_ERROR, payload: err.message });
       })
       .finally(() => {
         dispatch({ type: types.LOGIN_RESOLVE });
@@ -126,6 +126,7 @@ export const userActions = {
 const userInitialState = {
   user: {},
   users: [],
+  activeUser: {},
   status: "idle",
   error: "",
   loggedIn: false,

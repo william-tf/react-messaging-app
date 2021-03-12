@@ -1,10 +1,10 @@
-const express = require('express');
-const router = express.Router()
-const bcrypt = require('bcryptjs')
-const createToken = require('./createToken')
-const {isValid} = require('../middleware/username-validation')
-const tokenValidation = require('../middleware/restricted-validation')
-const User = require('../users/users-modal')
+const express = require("express");
+const router = express.Router();
+const bcrypt = require("bcryptjs");
+const createToken = require("./createToken");
+const { isValid } = require("../middleware/username-validation");
+const tokenValidation = require("../middleware/restricted-validation");
+const User = require("../users/users-modal");
 
 router.post("/signup", (req, res) => {
   const credentials = req.body;

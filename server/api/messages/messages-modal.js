@@ -1,33 +1,38 @@
-const db = require('../../data/connection')
+const db = require("../../data/connection");
 
-function allMessages(){
-    return db('messages')
+function allMessages() {
+  return db("messages");
 }
 
-function findByMsg(filter){
-    return db('messages').where(filter);
-  };
+function findMessagesByChatId(id) {
+  return db("messages").where({ chat: id });
+}
+
+function findByMsg(filter) {
+  return db("messages").where(filter);
+}
 
 const findById = async (id) => {
-    return db('messages').where({ id }).first('*');
-  };
+  return db("messages").where({ id }).first("*");
+};
 
-function createMsg(msg){
-    return db('messages').insert(msg).returning("*")
+function createMsg(msg) {
+  return db("messages").insert(msg).returning("*");
 }
 
-function updateMsg(id, msg){
-    return db('messages').where({id}).first().update(msg)
+function updateMsg(id, msg) {
+  return db("messages").where({ id }).first().update(msg);
 }
-function delMsg(id){
-    return db('messages').where({id}).del()
+function delMsg(id) {
+  return db("messages").where({ id }).del();
 }
 
 module.exports = {
-    allMessages,
-    findByMsg,
-    createMsg,
-    updateMsg,
-    delMsg,
-    findById
-}
+  allMessages,
+  findByMsg,
+  createMsg,
+  updateMsg,
+  delMsg,
+  findById,
+  findMessagesByChatId,
+};
