@@ -104,7 +104,7 @@ export const chatActions = {
 const chatInitialState = {
   chats: [],
   chat: {},
-  status: "idle",
+  status: "",
   error: "",
 };
 

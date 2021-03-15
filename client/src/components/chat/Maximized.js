@@ -34,7 +34,7 @@ import {
 import UserBar from './UserBar'
 import UserChatList from './UserChatList'
 function Maximized({minimize}) {
-  const [arrow, setArrow] = useState(true)
+  const [arrow, setArrow] = useState(false)
 
 
 

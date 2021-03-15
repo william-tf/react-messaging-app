@@ -35,7 +35,7 @@ import Minimized from './chatMinimzed'
 
 const chatSample = () => {
     return(
-        <FixedWrapper.Root maximizedOnInit >
+        <FixedWrapper.Root >
             <FixedWrapper.Maximized style={{
                 maxWidth:"400 !important"
             }}>
