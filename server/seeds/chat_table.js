@@ -4,9 +4,6 @@ exports.seed = function (knex) {
     .truncate()
     .then(function () {
       // Inserts seed entries
-      return knex("chat").insert([
-        { id: 1, users: [1, 2], messages: [2, 3] },
-        { id: 2, users: [1, 2], messages: [1, 4] },
-      ]);
+      return knex("chat").insert([{ id: 1 }, { id: 2 }]);
     });
 };

@@ -9,29 +9,25 @@ exports.seed = function (knex) {
           id: 1,
           messageText: "1st message test",
           userId: 1,
-          group: 0,
-          chat: 2,
+          chatId: 2,
         },
         {
           id: 2,
           messageText: "2nd message test",
           userId: 1,
-          group: 1,
-          chat: 1,
+          chatId: 1,
         },
         {
           id: 3,
           messageText: "3rd message test",
           userId: 2,
-          group: 0,
-          chat: 1,
+          chatId: 1,
         },
         {
           id: 4,
           messageText: "4th message test",
           userId: 1,
-          group: 1,
-          chat: 2,
+          chatId: 2,
         },
       ]);
     });

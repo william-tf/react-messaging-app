@@ -27,7 +27,13 @@ router.get("/chat/:id/messages", (req, res) => {
     .catch((err) => res.status(500).json({ message: err.message }));
 });
 
-router.get("");
+router.get("/chat/user/:id", (req, res) => {
+  Chat.userChats(req.params.id)
+    .then((chats) => {
+      res.status(200).json(chats);
+    })
+    .catch((err) => res.status(500).json({ message: err.message }));
+});
 
 router.post("/chats", (req, res) => {
   if (isValid(req.body)) {
