@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useHistory} from 'react-router-dom'
 import { Button, Checkbox, Form, Input } from "semantic-ui-react";
 import axios from "axios";
 
@@ -12,7 +13,7 @@ const initialState = {
 
 export default function SignUp() {
   const [form, setForm] = useState(initialState);
-
+  const history = useHistory()
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -29,6 +30,7 @@ export default function SignUp() {
         console.log(err);
       });
     setForm(initialState);
+    history.push('/login')
   };
 
   return (

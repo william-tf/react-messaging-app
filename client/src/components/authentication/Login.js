@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useHistory} from 'react-router-dom'
 import { Button, Checkbox, Form, Input } from "semantic-ui-react";
 import axios from "axios";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
@@ -10,7 +11,7 @@ const initialState = {
 
 export default function Login() {
   const [form, setForm] = useState(initialState);
-
+  const history = useHistory()
   const onChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -27,6 +28,7 @@ export default function Login() {
         console.log(err);
       });
     setForm(initialState);
+    history.push('/chat')
   };
 
   return (

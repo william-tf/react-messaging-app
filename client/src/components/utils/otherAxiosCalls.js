@@ -105,6 +105,7 @@ export const getAllChatMessages = (chatId) => {
     });
 };
 
+
 export const getMessageById = (messageId) => {
   return axiosWithAuth()
     .get(`/messages/${messageId}`)

@@ -33,13 +33,17 @@ import {
 } from "@livechat/ui-kit";
 import UserBar from './UserBar'
 import UserChatList from './UserChatList'
+import SidebarExample from './sideBar'
+
 function Maximized({minimize}) {
   const [arrow, setArrow] = useState(true)
 
 
 
   return(
-    
+    <div>
+      <SidebarExample/>
+      <h1>big testeroni</h1>
     <div style={{ maxWidth: '100%', height: 400 }}>
    {
      arrow ? <UserBar props={setArrow}/> : <UserChatList props={setArrow}/>
@@ -47,7 +51,7 @@ function Maximized({minimize}) {
     
     
   </div>
-  
+  </div>
   ) 
 }
 export default Maximized

@@ -30,12 +30,25 @@ import {
     ChatList,
     ChatListItem
   } from "@livechat/ui-kit";
+import {Dropdown} from 'semantic-ui-react'
+const options = [
+  {key:1, text:'test', value:1},
+  {key:2, text: 'testf', value:2}
+]
 
+function DroppedDown(){
+  return(
+    <div>
+      <Dropdown clearable options={options} selection/>
+    </div>
+  )
+}
 
 
 function UserChatList({minimize, props}){
     console.log('PROPS USERCHATLIST', props)
    const arrow = props
+   const [drop, setDrop] = useState(false)
     return(
         <div
     style={{
@@ -53,8 +66,14 @@ function UserChatList({minimize, props}){
         </IconButton>,
       ]}
       leftIcons={[
+        
         <IconButton onClick={() => {console.log('to add another conversation')}}>
           <i className="material-icons">add</i>
+        </IconButton>,
+        <IconButton onClick={() => {setDrop(!drop)}}>
+          {
+            drop ? <DroppedDown/> : <i className="material-icons">settings</i>
+          }   
         </IconButton>
       ]}
       title="Welcome to WhosApp"
