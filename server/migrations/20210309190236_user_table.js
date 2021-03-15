@@ -12,6 +12,7 @@ exports.up = function (knex) {
     })
     .createTable("userchats", (tbl) => {
       tbl.integer("userId").unsigned().references("id").inTable("user"),
+      tbl.integer("userId2").unsigned().references('id').inTable('user')
         tbl.integer("chatId").unsigned().references("id").inTable("chat");
       tbl.timestamp("created_at").defaultTo(knex.fn.now());
     })

@@ -21,12 +21,21 @@ router.get("/:id", (req, res) => {
 
 router.get("/chat/:id", (req, res) => {
   const id = req.params.id;
-  Message.findMessagesByChatId(id)
+  Message.findMsgByChatId(id)
     .then((messages) => {
       res.status(200).json(messages);
     })
     .catch((err) => res.status(500).json({ message: err }));
 });
+
+// router.get("/chat/:id", (req, res) => {
+//   const id = req.params.id;
+//   Message.findMsgByChatId(id)
+//     .then((messages) => {
+//       res.status(200).json(messages);
+//     })
+//     .catch((err) => res.status(500).json({ message: err }));
+// });
 
 router.put("/:id", (req, res) => {
   const msg = req.body;

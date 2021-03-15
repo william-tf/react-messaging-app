@@ -1,12 +1,15 @@
 const db = require("../../data/connection");
 
 function getChatsByUserId(userId) {
-  return db("userchats as uc").where("uc.userid", "=", userId);
+  return db("userchats as uc").select("uc.chatId").where("uc.userid", "=", userId);
 }
 
 function getUsersByChatId(chatId) {
-  let userchats = db("userchats as uc").where({ chatId });
-  return;
+  //get full user object from chatID
+  return db('userchats as uc')
+  .join('users as u', 'uc.userId', 'u.id')
+  .where('uc.chatId', chatId)
 }
+
 
 module.exports = { getChatsByUserId, getUsersByChatId };

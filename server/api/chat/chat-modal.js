@@ -10,7 +10,12 @@ function getChat(id) {
 
 function userChats(id) {
   console.log("HERE BITCH");
-  return db("chat").groupBy("chatId").havingIn("users", [id]);
+  // return db("chat").groupBy("chatId").havingIn("users", [id]);
+  return db('userchats as uc')
+  .join('users as u', 'u.id', 'uc.userId2')
+  .select("u.firstName", 'u.profilePic', 'u.id')
+  .where('uc.userId', id)
+
 }
 
 //.select('*').from('users').havingIn('id', [5, 3, 10, 17])

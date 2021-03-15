@@ -12,6 +12,16 @@ function findByMsg(filter) {
   return db("messages").where(filter);
 }
 
+function findMsgByChatId(chatId){
+  // return db('messages as m')
+  // .join('userchats as uc', 'm.chatId', 'uc.chatId')
+  // .select('m.userId', 'm.messageText')
+  // .where('m.chatId', chatId)
+  return db('messages as m')
+  .select('m.userId', 'm.messageText', 'm.created_at')
+  .where({chatId})
+}
+
 const findById = async (id) => {
   return db("messages").where({ id }).first("*");
 };
@@ -35,4 +45,5 @@ module.exports = {
   delMsg,
   findById,
   findMessagesByChatId,
+  findMsgByChatId
 };
