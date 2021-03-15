@@ -8,8 +8,15 @@ function getChat(id) {
   return db("chat").where({ id });
 }
 
+function userChats(id) {
+  console.log("HERE BITCH");
+  return db("chat").groupBy("chatId").havingIn("users", [id]);
+}
+
+//.select('*').from('users').havingIn('id', [5, 3, 10, 17])
+
 function userChat(chatid) {
-  return db("messages as m").select("*").where("m.chat", "=", chatid);
+  return db("messages as m").select("*").where("m.chatId", "=", chatid);
 }
 //we want chatID that includes the specific users
 
@@ -34,4 +41,5 @@ module.exports = {
   addChat,
   editChat,
   deleteChat,
+  userChats,
 };

@@ -8,31 +8,12 @@ exports.up = function (knex) {
         tbl.string("firstName").notNullable(),
         tbl.string("lastName").notNullable(),
         tbl.string("profilePic"),
-        tbl
-          .specificType("messageid", "int ARRAY")
-          .unsigned()
-          .references("messageid")
-          .inTable("messages");
-      tbl.timestamp("created_at").defaultTo(knex.fn.now());
-      tbl
-        .specificType("groups", "int ARRAY")
-        .unsigned()
-        .references("id")
-        .inTable("group")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+        tbl.timestamp("created_at").defaultTo(knex.fn.now());
     })
-    .createTable("group", (tbl) => {
-      tbl.increments("id"),
-        tbl.integer("admin").unsigned().references("id").inTable("user");
+    .createTable("userchats", (tbl) => {
+      tbl.integer("userId").unsigned().references("id").inTable("user"),
+        tbl.integer("chatId").unsigned().references("id").inTable("chat");
       tbl.timestamp("created_at").defaultTo(knex.fn.now());
-      tbl
-        .specificType("messages", "int ARRAY")
-        .unsigned()
-        .references("id")
-        .inTable("messages")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
     })
     .createTable("messages", (tbl) => {
       tbl.increments("id");
@@ -40,16 +21,7 @@ exports.up = function (knex) {
       tbl.string("messageText").notNullable();
       tbl.timestamp("created_at").defaultTo(knex.fn.now());
       tbl
-        .integer("group")
-        .defaultTo(0)
-        .unsigned()
-        .references("id")
-        .inTable("group")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
-      tbl
-        .integer("chat")
-        .defaultTo(0)
+        .integer("chatId")
         .unsigned()
         .references("id")
         .inTable("chat")
@@ -58,20 +30,7 @@ exports.up = function (knex) {
     })
     .createTable("chat", (tbl) => {
       tbl.increments("id");
-      tbl
-        .specificType("users", "int ARRAY")
-        .unsigned()
-        .references("id")
-        .inTable("users")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
-      tbl
-        .specificType("messages", "int ARRAY")
-        .unsigned()
-        .references("id")
-        .inTable("messages")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+      tbl.timestamp("created_at").defaultTo(knex.fn.now());
     });
 };
 

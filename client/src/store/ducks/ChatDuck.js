@@ -31,72 +31,72 @@ export const types = {
 
 export const chatActions = {
   getUserChatsThunk: (userId) => (dispatch) => {
-    dispatch({ type: GET_USER_CHATS_START });
+    dispatch({ type: types.GET_USER_CHATS_START });
     getAllUsersChats(userId)
       .then((res) => {
-        dispatch({ type: GET_USER_CHATS_SUCCESS, payload: res.data });
+        dispatch({ type: types.GET_USER_CHATS_SUCCESS, payload: res.data });
       })
       .catch((err) => {
-        dispatch({ type: GET_USER_CHATS_ERROR, payload: err.message });
+        dispatch({ type: types.GET_USER_CHATS_ERROR, payload: err.message });
       })
       .finally(() => {
-        dispatch({ type: GET_USER_CHATS_RESOLVE });
+        dispatch({ type: types.GET_USER_CHATS_RESOLVE });
       });
   },
 
   getSingleChatThunk: (chatId) => (dispatch) => {
-    dispatch({ type: GET_CHAT_START });
+    dispatch({ type: types.GET_CHAT_START });
     getChatById(chatId)
       .then((res) => {
-        dispatch({ type: GET_CHAT_SUCCESS, payload: res.data });
+        dispatch({ type: types.GET_CHAT_SUCCESS, payload: res.data });
       })
       .catch((err) => {
-        dispatch({ type: GET_CHAT_ERROR, payload: err.message });
+        dispatch({ type: types.GET_CHAT_ERROR, payload: err.message });
       })
       .finally(() => {
-        dispatch({ type: GET_CHAT_RESOLVE });
+        dispatch({ type: types.GET_CHAT_RESOLVE });
       });
   },
 
   addChatThunk: (newChat) => (dispatch) => {
-    dispatch({ type: POST_CHAT_START });
+    dispatch({ type: types.POST_CHAT_START });
     addNewChat(newChat)
       .then((res) => {
-        dispatch({ type: POST_CHAT_SUCCESS });
+        dispatch({ type: types.POST_CHAT_SUCCESS });
       })
       .catch((err) => {
-        dispatch({ type: POST_CHAT_ERROR, payload: err.message });
+        dispatch({ type: types.POST_CHAT_ERROR, payload: err.message });
       })
       .finally(() => {
-        dispatch({ type: POST_CHAT_RESOLVE });
+        dispatch({ type: types.POST_CHAT_RESOLVE });
       });
   },
 
   editChatThunk: (chatId, newChat) => (dispatch) => {
-    dispatch({ type: PUT_CHAT_START });
+    dispatch({ type: types.PUT_CHAT_START });
     editChatbyId(chatId, newChat)
       .then((res) => {
-        dispatch({ type: PUT_CHAT_SUCCESS });
+        dispatch({ type: types.PUT_CHAT_SUCCESS });
       })
       .catch((err) => {
-        dispatch({ type: PUT_CHAT_ERROR, payload: err.message });
+        dispatch({ type: types.PUT_CHAT_ERROR, payload: err.message });
       })
       .finally(() => {
-        dispatch({ type: PUT_CHAT_RESOLVE });
+        dispatch({ type: types.PUT_CHAT_RESOLVE });
       });
   },
 
   deleteChatThunk: (chatId) => (dispatch) => {
-    dispatch({ type: DELETE_CHAT_START });
+    dispatch({ type: types.DELETE_CHAT_START });
     deleteChatById(chatId)
       .then((res) => {
-        dispatch({ type: DELETE_CHAT_SUCCESS });
+        dispatch({ type: types.DELETE_CHAT_SUCCESS });
       })
       .catch((err) => {
-        dispatch({ type: DELETE_CHAT_ERROR, payload: err.message });
+        dispatch({ type: types.DELETE_CHAT_ERROR, payload: err.message });
       })
       .finally(() => {
-        dispatch({ type: DELETE_CHAT_RESOLVE });
+        dispatch({ type: types.DELETE_CHAT_RESOLVE });
       });
   },
 };
