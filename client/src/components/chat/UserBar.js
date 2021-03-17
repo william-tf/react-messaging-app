@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Avatar,
   TitleBar,
@@ -31,10 +31,20 @@ import {
   ChatList,
   ChatListItem,
 } from "@livechat/ui-kit";
+import { useDispatch, useSelector } from "react-redux";
+
+
+
 
 function UserBar({ minimize, props }) {
   const arrow = props;
   const name = "seth mc pooper";
+  const messages = useSelector((state) => state.message.messages)
+  console.log('here are the FUCKING messages ______', messages)
+
+
+
+
   return (
     <div>
       <div
@@ -92,7 +102,16 @@ function UserBar({ minimize, props }) {
             </Column>
           </Row>
         </AgentBar>
-        <MessageList active>
+        {
+          messages.map((message) => {
+            <MessageList active>
+              <Message authorName={message}>
+                {message.MessageText}
+              </Message>
+            </MessageList>
+          })
+        }
+        {/* <MessageList active>
           <MessageGroup
             avatar="https://livechat.s3.amazonaws.com/default/avatars/male_8.jpg"
             onlyFirstWithMeta
@@ -163,7 +182,7 @@ function UserBar({ minimize, props }) {
               </MessageMedia>
             </Message>
           </MessageGroup>
-        </MessageList>
+        </MessageList> */}
       </div>
     </div>
   );

@@ -33,23 +33,28 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "../../store/ducks/chatDuck";
-
+import { messageActions } from '../../store/ducks/messageDuck'
+import { userActions} from '../../store/ducks/userDuck'
 function UserChatList({ minimize, props }) {
   const dispatch = useDispatch();
   const chats = useSelector((state) => state.chat.chats);
   const chat = useSelector((state) => state.chat.chat);
   const chatStatus = useSelector((state) => state.chat.status);
   const status = useSelector((state) => state.chat.status)
+  const messages = useSelector((state) => state.message.messages)
+  const activeUsurper = useSelector((state) => state.user.activeUser)
   const [loaded, setLoaded] = useState(false)
   useEffect(() => {
+    //gets users chats
     dispatch(chatActions.getUserChatsThunk(1));
-    
   }, []);
 
   console.log("CHATS==> ", chats);
-  
-  console.log("USERCHATS STatus ====>", status)
+  console.log("ACTIVE USER ==> ", activeUsurper);
   const arrow = props;
+  const avatarPic = chat.profilePic
+
+  
   return (
     <>
     {
@@ -92,16 +97,43 @@ function UserChatList({ minimize, props }) {
         }}
         >
         <ChatList>
-          <ChatListItem onClick={() => arrow(true)}>
-            <Avatar letter={chats[0].firstName[0]} />
+          {
+            chats.map((chat) => {
+              return(
+          <ChatListItem onClick={() =>{
+            arrow(true)
+            dispatch(messageActions.getChatMessagesThunk(chat.chatId))
+          } }>
+            {
+              avatarPic === "" ?
+              <Avatar letter={chat.firstName[0]} />
+              :
+              <Avatar imgUrl={avatarPic}/>
+            }
             <Column fill>
               <Row justify>
-                <Title ellipsis>{chats[0].firstName}</Title>
+                <Title ellipsis>{chat.firstName}</Title>
                 <Subtitle nowrap></Subtitle>
               </Row>
             </Column>
           </ChatListItem>
-          <ChatListItem active>
+              )
+
+            })
+          }
+          
+        </ChatList>
+      </div>
+    </div>
+  </div>
+  : <p>loading icon filler</p>
+    }
+    
+          </>
+  );
+}
+
+{/* <ChatListItem active>
             <Avatar letter={chats[1].firstName[0]} />
             <Column fill>
               <Row justify>
@@ -124,16 +156,5 @@ function UserChatList({ minimize, props }) {
                 {"Ok, thanks for the details, I'll get back to you tomorrow."}
               </Subtitle>
             </Column>
-          </ChatListItem>
-        </ChatList>
-      </div>
-    </div>
-  </div>
-  : <p>loading icon filler</p>
-    }
-    
-          </>
-  );
-}
-
+          </ChatListItem> */}
 export default UserChatList;

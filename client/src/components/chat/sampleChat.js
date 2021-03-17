@@ -31,6 +31,7 @@ import {
 
 import ChatCard from './Maximized'
 import Minimized from './chatMinimzed'
+import UserChatList from './UserChatList'
 //import ChatList from './chatList'
 
 const chatSample = () => {
@@ -40,7 +41,7 @@ const chatSample = () => {
                 maxWidth:"400 !important"
             }}>
             <ChatCard />
-           
+           {/* <UserChatList/> */}
             </FixedWrapper.Maximized >
             <FixedWrapper.Minimized active="false">
             <Minimized />

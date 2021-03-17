@@ -5,6 +5,7 @@ import {
   getAllUsers,
   putExistingUserById,
   deleteUserById,
+  getUserByEmail
 } from "../../components/utils/otherAxiosCalls";
 
 export const types = {
@@ -12,6 +13,10 @@ export const types = {
   GET_USERS_SUCCESS: "GET_USERS_SUCCESS",
   GET_USERS_ERROR: "GET_USERS_ERROR",
   GET_USERS_RESOLVE: "GET_USERS_RESOLVE",
+  GET_ACTIVE_USER_START: "GET_ACTIVE_USER_START",
+  GET_ACTIVE_USER_SUCCESS: "GET_ACTIVE_USER_SUCCESS",
+  GET_ACTIVE_USER_ERROR: "GET_ACTIVE_USER_ERROR",
+  GET_ACTIVE_USER_RESOLVE: "GET_ACTIVE_USER_RESOLVE",
   LOGIN_START: "LOGIN_START",
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
   LOGIN_ERROR: "LOGIN_ERROR",
@@ -93,6 +98,19 @@ export const userActions = {
         dispatch({ type: types.GET_USER_RESOLVE });
       });
   },
+  getSingleUserByEmailThunk: (email) => (dispatch) => {
+    dispatch({ type: types.GET_ACTIVE_USER_START });
+    getUserByEmail(email)
+      .then((res) => {
+        dispatch({ type: types.GET_ACTIVE_USER_SUCCESS, payload: res.data });
+      })
+      .catch((err) => {
+        dispatch({ type: types.GET_ACTIVE_USER_ERROR, payload: err.message });
+      })
+      .finally(() => {
+        dispatch({ type: types.GET_ACTIVE_USER_RESOLVE });
+      });
+  },
 
   editUserThunk: (userId, editedUser) => (dispatch) => {
     dispatch({ type: types.PUT_USER_START });
@@ -143,6 +161,7 @@ const userReducer = (state = userInitialState, action) => {
       return {
         ...state,
         status: "post/success",
+        
       };
     case types.LOGIN_ERROR:
       return {
@@ -220,6 +239,28 @@ const userReducer = (state = userInitialState, action) => {
         ...state,
         status: "idle",
       };
+    case types.GET_ACTIVE_USER_START:
+      return {
+        ...state,
+        status:'get/pending'
+      }
+    case types.GET_ACTIVE_USER_SUCCESS:
+      return {
+        ...state,
+        activeUser: action.payload,
+        status:'get/success'
+      }
+    case types.GET_ACTIVE_USER_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        status:'get/error'
+      }
+    case types.GET_ACTIVE_USER_RESOLVE:
+      return {
+        ...state,
+        status:'idle'
+      }
     case types.PUT_USER_START:
       return {
         ...state,

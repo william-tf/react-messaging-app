@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Button, Checkbox, Form, Input } from "semantic-ui-react";
 import axios from "axios";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { userActions} from '../../store/ducks/userDuck'
+import { useDispatch, useSelector } from "react-redux";
+import {useHistory} from 'react-router-dom'
 
 const initialState = {
   email: "",
@@ -10,7 +13,8 @@ const initialState = {
 
 export default function Login() {
   const [form, setForm] = useState(initialState);
-
+  const dispatch = useDispatch()
+  const history = useHistory()
   const onChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -18,10 +22,14 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('form', form)
     axios
       .post("http://localhost:8000/auth/login", form)
       .then((res) => {
         console.log(res.data);
+    
+        dispatch(userActions.getSingleUserByEmailThunk(form.email))
+        history.push('/chat')
       })
       .catch((err) => {
         console.log(err);

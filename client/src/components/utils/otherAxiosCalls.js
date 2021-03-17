@@ -72,6 +72,18 @@ export const getAllUsers = () => {
     });
 };
 
+export const getUserByEmail = (email) => {
+  return axiosWithAuth()
+  .get(`/users/user/${email}`)
+  .then((res) => {
+    console.log('IN USERACTION:THIS IS RES', res.data)
+    return res
+  })
+  .catch((err) => {
+    return err;
+  });
+}
+
 export const putExistingUserById = (userId, editedUser) => {
   return axiosWithAuth()
     .put(`/users/${userId}`, editedUser)
@@ -192,6 +204,7 @@ export const editChatbyId = (chatId, editedChat) => {
       return err;
     });
 };
+
 
 export const deleteChatById = (chatId) => {
   return axiosWithAuth()
