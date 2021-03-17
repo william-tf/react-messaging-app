@@ -16,7 +16,7 @@ function addUser(user) {
 }
 
 function findUser(email) {
-  return db("users").where(email);
+  return db("users").where({email});
 }
 
 async function addUser(user) {

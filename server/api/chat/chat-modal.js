@@ -13,7 +13,7 @@ function userChats(id) {
   // return db("chat").groupBy("chatId").havingIn("users", [id]);
   return db('userchats as uc')
   .join('users as u', 'u.id', 'uc.userId2')
-  .select("u.firstName", 'u.profilePic', 'u.id')
+  .select("u.firstName", 'u.profilePic', 'u.id', "uc.chatId")
   .where('uc.userId', id)
 
 }

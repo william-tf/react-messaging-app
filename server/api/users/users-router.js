@@ -62,4 +62,11 @@ router.delete("/:id", (req, res) => {
     });
   }
 });
+router.get('/user/:email', (req, res) => {
+  const email = req.params.email
+  console.log('THIS IS EMAIL =>>>>', email)
+  User.findUser(email)
+  .then((usr) => res.status(200).json(usr))
+  .catch((err) => console.log(err))
+})
 module.exports = router;

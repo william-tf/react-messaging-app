@@ -24,7 +24,7 @@ router.post("/signup", (req, res) => {
 
 router.post("/login", (req, res) => {
   if (isValid(req.body)) {
-    User.findUser({ email: req.body.email })
+    User.findUser(req.body.email)
       .then(([user]) => {
         console.log("USER==> ", user);
         if (user && bcrypt.compareSync(req.body.password, user.password)) {
