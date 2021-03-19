@@ -12,6 +12,12 @@ exports.seed = function (knex) {
           chatId: 1,
         },
         {
+          id: 330,
+          messageText: "1.5st message test",
+          userId: 1,
+          chatId: 1,
+        },
+        {
           id: 2,
           messageText: "2nd message test",
           userId: 2,

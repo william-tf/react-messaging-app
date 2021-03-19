@@ -6,13 +6,18 @@ const io = require('socket.io')(http, {
     origin: '*'
   }
 });
+const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
 
 app.get('/', (req, res) => {
   res.sendFile(__public + '/index.html');
 });
 
 io.on('connection', (socket) => {
-  console.log("user connected")
+  console.log(`user ${socket} has connected`)
+  socket.on(NEW_CHAT_MESSAGE_EVENT, (data) => {
+    console.log('SOCKET_DATA', data)
+    io.emit(NEW_CHAT_MESSAGE_EVENT, data)
+  })
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });

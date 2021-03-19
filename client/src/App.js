@@ -14,11 +14,27 @@ import Login from "./components/authentication/Login";
 import SignUp from "./components/authentication/SignUp";
 import ChatDashboard from "./components/chat/ChatDashboard";
 
+const theme = {
+  ...purpleTheme,
+  TextComposer: {
+      ...purpleTheme.TextComposer,
+      css: {
+          ...purpleTheme.TextComposer.css,
+          marginTop: '1em',
+      },
+  },
+  OwnMessage: {
+      ...purpleTheme.OwnMessage,
+      secondaryTextColor: '#fff',
+  },
+}
+
+
 function App() {
   const { push } = useHistory();
 
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
       <div className="App">
         <Switch>
           <Route path="/login" component={Login} />
