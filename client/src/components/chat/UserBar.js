@@ -105,7 +105,7 @@ function UserBar({ minimize, props }) {
         {
           messages.map((message) => {
             <MessageList active>
-              <Message authorName={message}>
+              <Message authorName={message.}>
                 {message.MessageText}
               </Message>
             </MessageList>
