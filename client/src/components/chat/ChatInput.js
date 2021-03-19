@@ -29,12 +29,12 @@ export default function ChatInput() {
   };
 
   const handleSubmit = () => {
-    console.log("here", newMessage);
+    console.log("here", activeUser, activeChat);
     dispatch(
       messageActions.addMessageThunk({
         ...newMessage,
         userId: activeUser.id,
-        chatId: activeChat.chatId,
+        chatId: activeChat.id,
       })
     );
     setNewMessage(initialState);

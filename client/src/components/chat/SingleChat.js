@@ -37,7 +37,7 @@ import ChatInput from './ChatInput';
 
 
 
-function UserBar({ minimize, props }) {
+function SingleChat({ minimize, props }) {
   const arrow = props;
   const name = "seth mc pooper";
   const messages = useSelector((state) => state.message.messages)
@@ -99,4 +99,4 @@ function UserBar({ minimize, props }) {
   );
 }
 
-export default UserBar;
+export default SingleChat;
