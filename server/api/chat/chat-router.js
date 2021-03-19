@@ -76,7 +76,6 @@ router.put("/chat/:id", (req, res) => {
 router.delete("/chat/:id", (req, res) => {
   try {
     Chat.getChat(req.params.id).then((chat) => {
-      console.log("CHAT RETURNED FROM VALID===> ", chat);
       Chat.deleteChat(chat[0].id).then(() => {
         res.status(204).json({ message: `Chat with id ${chat.id} deleted.` });
       });

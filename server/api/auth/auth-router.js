@@ -26,7 +26,6 @@ router.post("/login", (req, res) => {
   if (isValid(req.body)) {
     User.findUser(req.body.email)
       .then(([user]) => {
-        console.log("USER==> ", user);
         if (user && bcrypt.compareSync(req.body.password, user.password)) {
           const token = createToken(user);
           res.status(200).json({

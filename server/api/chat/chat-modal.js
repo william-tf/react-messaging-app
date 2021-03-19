@@ -9,7 +9,6 @@ function getChat(id) {
 }
 
 function userChats(id) {
-  console.log("HERE BITCH");
   // return db("chat").groupBy("chatId").havingIn("users", [id]);
   return db('userchats as uc')
   .join('users as u', 'u.id', 'uc.userId2')
@@ -35,7 +34,6 @@ function editChat(id, chat) {
 }
 
 function deleteChat(id) {
-  console.log("ID==> ", id);
   return db("chat").where({ id: id }).del();
 }
 

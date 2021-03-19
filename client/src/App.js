@@ -1,11 +1,4 @@
-import logo from "./logo.svg";
-import "./App.css";
-import { Route, Switch, useHistory } from "react-router-dom";
-import PrivateRoute from "./components/utils/PrivateRoute";
-import Login from "./components/authentication/Login";
-import SignUp from "./components/authentication/SignUp";
-import chatSample from "./components/chat/sampleChat";
-
+import React, { useEffect } from "react";
 import {
   ThemeProvider,
   FixedWrapper,
@@ -14,6 +7,13 @@ import {
   purpleTheme,
   defaultTheme,
 } from "@livechat/ui-kit";
+import "./App.css";
+import { Route, Switch, useHistory } from "react-router-dom";
+import PrivateRoute from "./components/utils/PrivateRoute";
+import Login from "./components/authentication/Login";
+import SignUp from "./components/authentication/SignUp";
+import ChatDashboard from "./components/chat/ChatDashboard";
+
 function App() {
   const { push } = useHistory();
 
@@ -23,7 +23,7 @@ function App() {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/auth/signup" component={SignUp} />
-          <PrivateRoute path="/chat" component={chatSample} />
+          <PrivateRoute path="/chat" component={ChatDashboard} />
         </Switch>
       </div>
     </ThemeProvider>
