@@ -31,7 +31,7 @@ import {
   ChatList,
   ChatListItem
 } from "@livechat/ui-kit";
-import UserBar from './UserBar'
+import UserBar from './SingleChat'
 import UserChatList from './UserChatList'
 function Maximized({minimize}) {
   const [arrow, setArrow] = useState(false)

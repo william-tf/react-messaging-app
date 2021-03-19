@@ -33,107 +33,107 @@ import {
 
 import { useDispatch, useSelector } from "react-redux";
 import { chatActions } from "../../store/ducks/chatDuck";
-import { messageActions } from '../../store/ducks/messageDuck'
-import { userActions} from '../../store/ducks/userDuck'
+import { messageActions } from "../../store/ducks/messageDuck";
+import { userActions } from "../../store/ducks/userDuck";
 function UserChatList({ minimize, props }) {
   const dispatch = useDispatch();
   const chats = useSelector((state) => state.chat.chats);
-  const chat = useSelector((state) => state.chat.chat);
+  const chat = useSelector((state) => state.chat.chat[0]);
   const chatStatus = useSelector((state) => state.chat.status);
-  const status = useSelector((state) => state.chat.status)
-  const messages = useSelector((state) => state.message.messages)
-  const activeUsurper = useSelector((state) => state.user.activeUser)
-  const [loaded, setLoaded] = useState(false)
+  const status = useSelector((state) => state.chat.status);
+  const messages = useSelector((state) => state.message.messages);
+  const activeUsurper = useSelector((state) => state.user.activeUser);
+
   useEffect(() => {
     //gets users chats
-    dispatch(chatActions.getUserChatsThunk(1));
+    dispatch(chatActions.getUserChatsThunk(activeUsurper[0].id));
+    console.log(activeUsurper.id);
   }, []);
 
-  console.log("CHATS==> ", chats);
-  console.log("ACTIVE USER ==> ", activeUsurper);
   const arrow = props;
-  const avatarPic = chat.profilePic
+  //We need to fix this
+  const avatarPic = activeUsurper.profilePic;
 
-  
   return (
     <>
-    {
-    status === "idle" ? <div
-    style={{
-      display: "flex",
-      border: "5px solid black",
-      flexDirection: "column",
-      height: "100%",
-      maxWidth: "100%",
-    }}
-    >
-      {console.log("CHATS==> ", chats[0].firstName)}
-    <TitleBar
-      rightIcons={[
-        <IconButton key="close" onClick={minimize}>
-          <CloseIcon />
-        </IconButton>,
-      ]}
-      leftIcons={[
-        <IconButton
-        onClick={() => {
-          console.log("to add another conversation");
-        }}
+      {status === "idle" ? (
+        <div
+          style={{
+            display: "flex",
+            border: "5px solid black",
+            flexDirection: "column",
+            height: "100%",
+            maxWidth: "100%",
+          }}
         >
-          <i className="material-icons">add</i>
-        </IconButton>,
-      ]}
-      title="Welcome to WhosApp"
-      />
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-      }}
-      >
-      <div
-        style={{
-          maxWidth: "100%",
-        }}
-        >
-        <ChatList>
-          {
-            chats.map((chat) => {
-              return(
-          <ChatListItem onClick={() =>{
-            arrow(true)
-            dispatch(messageActions.getChatMessagesThunk(chat.chatId))
-          } }>
-            {
-              avatarPic === "" ?
-              <Avatar letter={chat.firstName[0]} />
-              :
-              <Avatar imgUrl={avatarPic}/>
-            }
-            <Column fill>
-              <Row justify>
-                <Title ellipsis>{chat.firstName}</Title>
-                <Subtitle nowrap></Subtitle>
-              </Row>
-            </Column>
-          </ChatListItem>
-              )
-
-            })
-          }
-          
-        </ChatList>
-      </div>
-    </div>
-  </div>
-  : <p>loading icon filler</p>
-    }
-    
-          </>
+          <TitleBar
+            rightIcons={[
+              <IconButton key="close" onClick={minimize}>
+                <CloseIcon />
+              </IconButton>,
+            ]}
+            leftIcons={[
+              <IconButton
+                onClick={() => {
+                  console.log("to add another conversation");
+                }}
+              >
+                <i className="material-icons">add</i>
+              </IconButton>,
+            ]}
+            title="Welcome to WhosApp"
+          />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
+            <div
+              style={{
+                maxWidth: "100%",
+              }}
+            >
+              <ChatList>
+                {chats.map((cht) => {
+                  return (
+                    <ChatListItem
+                      onClick={() => {
+                        arrow(true);
+                        dispatch(
+                          messageActions.getChatMessagesThunk(cht.chatId)
+                        );
+                        console.log(cht);
+                        dispatch(chatActions.getSingleChatThunk(cht.chatId));
+                      }}
+                    >
+                      {avatarPic === "" ? (
+                        <Avatar letter={cht.firstName[0]} />
+                      ) : (
+                        <Avatar imgUrl={avatarPic} />
+                      )}
+                      <Column fill>
+                        <Row justify>
+                          <Title ellipsis>{cht.firstName}</Title>
+                          <Subtitle nowrap></Subtitle>
+                        </Row>
+                      </Column>
+                    </ChatListItem>
+                  );
+                })}
+              </ChatList>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <p>loading icon filler</p>
+      )}
+    </>
   );
 }
 
-{/* <ChatListItem active>
+{
+  /* <ChatListItem active>
             <Avatar letter={chats[1].firstName[0]} />
             <Column fill>
               <Row justify>
@@ -156,5 +156,6 @@ function UserChatList({ minimize, props }) {
                 {"Ok, thanks for the details, I'll get back to you tomorrow."}
               </Subtitle>
             </Column>
-          </ChatListItem> */}
+          </ChatListItem> */
+}
 export default UserChatList;

@@ -27,7 +27,7 @@ const findById = async (id) => {
 };
 
 function createMsg(msg) {
-  return db("messages").insert(msg).returning("*");
+  return db("messages").insert(msg);
 }
 
 function updateMsg(id, msg) {
