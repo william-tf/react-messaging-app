@@ -32,16 +32,15 @@ import {
   ChatListItem,
 } from "@livechat/ui-kit";
 import { useDispatch, useSelector } from "react-redux";
-import ChatInput from './ChatInput';
-
-
-
+import ChatInput from "./ChatInput";
 
 function UserBar({ minimize, props }) {
   const arrow = props;
+  const activeUser = useSelector((state) => state.user.activeUser[0]);
+  const dispatch = useDispatch();
   const name = "seth mc pooper";
-  const messages = useSelector((state) => state.message.messages)
-
+  const messages = useSelector((state) => state.message.messages);
+  console.log(messages);
   return (
     <div>
       <div
@@ -79,24 +78,33 @@ function UserBar({ minimize, props }) {
               <Title>{name}</Title>
               <Subtitle>gay boy</Subtitle>
             </Column>
-
           </Row>
         </AgentBar>
-        <MessageList active>
-          {
-            messages.map((message) => {
-              return (
-                <Message>
-                  {message.messageText}
-                </Message>
-              )
-            })
-          }
-        </MessageList>
+        <div>
+
+       
+
+          {messages.map((message) => {
+            if(activeUser.id === message.userId){
+              return(<Message isOwn={true}>
+                {message.messageText}
+              </Message>)
+            } else{
+              return(<Message>{message.messageText}</Message>)
+            }
+            
+              
+          })}
+         </div>
         <ChatInput></ChatInput>
       </div>
     </div>
   );
 }
+
+//if activeUser.id === userId of the message:
+//<Message isOwn=true>text<Message/>
+//else:
+//<message isOwn=False>Text<Message/>
 
 export default UserBar;
