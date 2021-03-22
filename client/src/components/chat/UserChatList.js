@@ -100,10 +100,7 @@ function UserChatList({ minimize, props }) {
                     <ChatListItem
                       onClick={() => {
                         arrow(true);
-                        dispatch(
-                          messageActions.getChatMessagesThunk(cht.chatId)
-                        );
-                        console.log(cht);
+                        dispatch(messageActions.getChatMessagesThunk(cht.chatId));
                         dispatch(chatActions.getSingleChatThunk(cht.chatId));
                       }}
                     >

@@ -23,6 +23,10 @@ io.on('connection', (socket) => {
   });
 });
 
+io.on("sent", (socket) => {
+  socket.broadcast.emit("hello", "world");
+});
+
 http.listen(port, () => {
   console.log(`Example app listening on port ${port}!`)
 });

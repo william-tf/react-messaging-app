@@ -34,13 +34,13 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import ChatInput from "./ChatInput";
 
-function UserBar({ minimize, props }) {
+function SingleChat({ minimize, props }) {
   const arrow = props;
   const activeUser = useSelector((state) => state.user.activeUser[0]);
   const dispatch = useDispatch();
   const name = "seth mc pooper";
   const messages = useSelector((state) => state.message.messages);
-  console.log(messages);
+
   return (
     <div>
       <div
@@ -102,9 +102,4 @@ function UserBar({ minimize, props }) {
   );
 }
 
-//if activeUser.id === userId of the message:
-//<Message isOwn=true>text<Message/>
-//else:
-//<message isOwn=False>Text<Message/>
-
-export default UserBar;
+export default SingleChat;

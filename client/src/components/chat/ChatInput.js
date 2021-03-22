@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   TextComposer,
@@ -20,26 +20,18 @@ export default function ChatInput() {
   const activeUser = useSelector((state) => state.user.activeUser[0]);
   const activeChat = useSelector((state) => state.chat.chat[0]);
   const [newMessage, setNewMessage] = useState(initialState);
-  const socketRef = useRef()
+  const socketRef = useRef();
   const dispatch = useDispatch();
-  const socket = io("http://localhost:8000");
-  const SOCKET_URL = "http://localhost:8000"
+  const SOCKET_URL = "http://localhost:8000";
   const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
+
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setNewMessage({ ...newMessage, [name]: value });
-    console.log(activeChat);
   };
 
   const handleSubmit = () => {
-    console.log("CHAT ID 1ST LOG", activeChat.id);
-    socketRef.current = socketIOClient(SOCKET_URL)
-    socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
-      messageText: newMessage.messageText,
-      userId: activeUser.id,
-      chatId: activeChat.id
-    })
-    
+    socketRef.current = socketIOClient(SOCKET_URL);
     dispatch(
       messageActions.addMessageThunk({
         ...newMessage,
@@ -47,20 +39,23 @@ export default function ChatInput() {
         chatId: activeChat.id,
       })
     );
-    
+
     // socket.on("connection", (activeUser) => {
     //   console.log("client-side socket", activeUser);
     // });
     // socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
-    
 
     // })
-    
+
+    socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
+      messageText: newMessage.messageText,
+      userId: activeUser.id,
+      chatId: activeChat.id,
+    });
 
     setNewMessage(initialState);
+    dispatch(messageActions.getChatMessagesThunk(activeChat.id));
   };
-
-  
 
   return (
     <TextComposer>
