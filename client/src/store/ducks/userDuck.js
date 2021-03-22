@@ -161,7 +161,7 @@ const userReducer = (state = userInitialState, action) => {
       return {
         ...state,
         status: "post/success",
-        
+        loggedIn: true
       };
     case types.LOGIN_ERROR:
       return {

@@ -40,7 +40,7 @@ function SingleChat({ minimize, props }) {
   const dispatch = useDispatch();
   const name = "seth mc pooper";
   const messages = useSelector((state) => state.message.messages);
-  console.log(messages);
+
   return (
     <div>
       <div
