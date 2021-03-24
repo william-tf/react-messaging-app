@@ -2,44 +2,30 @@ import React, { useState, useEffect } from "react";
 import {
   Avatar,
   TitleBar,
-  TextInput,
-  MessageList,
   Message,
-  MessageText,
   AgentBar,
   Title,
   Subtitle,
-  MessageGroup,
-  MessageButtons,
-  MessageButton,
-  MessageTitle,
-  MessageMedia,
-  TextComposer,
   Row,
-  Fill,
-  Fit,
   IconButton,
-  ArrowBackIcon,
-  FixedWrapper,
-  SendButton,
-  EmojiIcon,
   CloseIcon,
   Column,
-  RateGoodIcon,
-  RateBadIcon,
-  Bubble,
-  ChatList,
-  ChatListItem,
 } from "@livechat/ui-kit";
 import { useDispatch, useSelector } from "react-redux";
 import ChatInput from "./ChatInput";
+import useEffectAfterMount from "../hooks/useEffectAfterMount";
+import { messageActions } from "../../store/ducks/messageDuck";
 
-function SingleChat({ minimize, props }) {
+function SingleChat({ minimize, props, handleSocketSend }) {
   const arrow = props;
   const activeUser = useSelector((state) => state.user.activeUser[0]);
   const dispatch = useDispatch();
   const name = "seth mc pooper";
   const messages = useSelector((state) => state.message.messages);
+
+  // useEffect(() => {
+  //   use;
+  // }, [messages]);
 
   return (
     <div>
@@ -81,22 +67,15 @@ function SingleChat({ minimize, props }) {
           </Row>
         </AgentBar>
         <div>
-
-       
-
           {messages.map((message) => {
-            if(activeUser.id === message.userId){
-              return(<Message isOwn={true}>
-                {message.messageText}
-              </Message>)
-            } else{
-              return(<Message>{message.messageText}</Message>)
+            if (activeUser.id === message.userId) {
+              return <Message isOwn={true}>{message.messageText}</Message>;
+            } else {
+              return <Message>{message.messageText}</Message>;
             }
-            
-              
           })}
-         </div>
-        <ChatInput></ChatInput>
+        </div>
+        <ChatInput handleSocketSend={handleSocketSend}></ChatInput>
       </div>
     </div>
   );

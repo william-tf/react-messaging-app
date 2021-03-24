@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 const initialState = {
-  email: "",
+  username: "",
   password: "",
 };
 
@@ -22,13 +22,14 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("form", form);
     axios
       .post("http://localhost:8000/auth/login", form)
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        dispatch(userActions.getSingleUserByEmailThunk(form.email));
-        history.push("/chat");
+        setTimeout(function () {
+          dispatch(userActions.getUserByUsernameThunk(form.username));
+          history.push("/chat");
+        }, 30);
       })
       .catch((err) => {
         console.log(err);
@@ -40,11 +41,11 @@ export default function Login() {
     <div style={{ width: "30%", margin: "10% auto auto auto" }}>
       <Form onSubmit={handleSubmit}>
         <Form.Field>
-          <label style={{ textAlign: "left" }}>Email</label>
+          <label style={{ textAlign: "left" }}>Username</label>
           <Input
-            placeholder="Email"
-            name="email"
-            value={form.email}
+            placeholder="Username"
+            name="username"
+            value={form.username}
             onChange={onChange}
           />
         </Form.Field>

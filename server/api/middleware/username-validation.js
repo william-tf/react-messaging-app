@@ -1,6 +1,9 @@
 function isValid(user) {
   return Boolean(
-    user.email && user.password && typeof user.password === "string"
+    user.username &&
+      user.password &&
+      typeof user.username === "string" &&
+      typeof user.password === "string"
   );
 }
 
