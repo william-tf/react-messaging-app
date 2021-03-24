@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import { Button, Checkbox, Form, Input } from "semantic-ui-react";
 import axios from "axios";
-import {useHistory} from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { userActions} from '../../store/ducks/userDuck'
+import { userActions } from "../../store/ducks/userDuck";
 
 const initialState = {
   firstName: "",
   lastName: "",
   email: "",
   password: "",
-  userName: "",
+  username: "",
 };
 
 export default function SignUp() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [form, setForm] = useState(initialState);
-  const history = useHistory()
+  const history = useHistory();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -27,10 +27,9 @@ export default function SignUp() {
     axios
       .post("http://localhost:8000/auth/signup", form)
       .then((res) => {
-        console.log(res.data);
-        localStorage.setItem('token', res.data.token)
-        dispatch(userActions.getSingleUserByEmailThunk(form.email))
-        history.push("/chat")
+        localStorage.setItem("token", res.data.token);
+        dispatch(userActions.getUserByUsernameThunk(form.username));
+        history.push("/chat");
       })
       .catch((err) => {
         console.log(err);
@@ -74,8 +73,8 @@ export default function SignUp() {
           <label style={{ textAlign: "left" }}>User Name</label>
           <Input
             placeholder="User Name"
-            name="userName"
-            value={form.userName}
+            name="username"
+            value={form.username}
             onChange={handleChange}
           />
         </Form.Field>

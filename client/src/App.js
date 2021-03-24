@@ -8,6 +8,7 @@ import {
   defaultTheme,
 } from "@livechat/ui-kit";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Switch, useHistory } from "react-router-dom";
 import PrivateRoute from "./components/utils/PrivateRoute";
 import Login from "./components/authentication/Login";
@@ -17,18 +18,17 @@ import ChatDashboard from "./components/chat/ChatDashboard";
 const theme = {
   ...purpleTheme,
   TextComposer: {
-      ...purpleTheme.TextComposer,
-      css: {
-          ...purpleTheme.TextComposer.css,
-          marginTop: '1em',
-      },
+    ...purpleTheme.TextComposer,
+    css: {
+      ...purpleTheme.TextComposer.css,
+      marginTop: "1em",
+    },
   },
   OwnMessage: {
-      ...purpleTheme.OwnMessage,
-      secondaryTextColor: '#fff',
+    ...purpleTheme.OwnMessage,
+    secondaryTextColor: "#fff",
   },
-}
-
+};
 
 function App() {
   const { push } = useHistory();

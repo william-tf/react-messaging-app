@@ -1,53 +1,18 @@
-import React, {useState} from "react";
-import {
-  Avatar,
-  TitleBar,
-  TextInput,
-  MessageList,
-  Message,
-  MessageText,
-  AgentBar,
-  Title,
-  Subtitle,
-  MessageGroup,
-  MessageButtons,
-  MessageButton,
-  MessageTitle,
-  MessageMedia,
-  TextComposer,
-  Row,
-  Fill,
-  Fit,
-  IconButton,
-  ArrowBackIcon,
-  FixedWrapper,
-  SendButton,
-  EmojiIcon,
-  CloseIcon,
-  Column,
-  RateGoodIcon,
-  RateBadIcon,
-  Bubble,
-  ChatList,
-  ChatListItem
-} from "@livechat/ui-kit";
-import UserBar from './SingleChat'
-import UserChatList from './UserChatList'
-function Maximized({minimize}) {
-  const [arrow, setArrow] = useState(false)
+import React, { useState } from "react";
+import UserBar from "./SingleChat";
+import UserChatList from "./UserChatList";
+function Maximized(props) {
+  const { handleSocketSend } = props;
+  const [arrow, setArrow] = useState(false);
 
-
-
-  return(
-    
-    <div style={{ maxWidth: '100%', height: 400 }}>
-   {
-     arrow ? <UserBar props={setArrow}/> : <UserChatList props={setArrow}/>
-   }
-    
-    
-  </div>
-  
-  ) 
+  return (
+    <div style={{ maxWidth: "100%", height: 400 }}>
+      {arrow ? (
+        <UserBar handleSocketSend={handleSocketSend} props={setArrow} />
+      ) : (
+        <UserChatList props={setArrow} />
+      )}
+    </div>
+  );
 }
-export default Maximized
+export default Maximized;

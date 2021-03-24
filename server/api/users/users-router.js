@@ -62,10 +62,18 @@ router.delete("/:id", (req, res) => {
     });
   }
 });
-router.get('/user/:email', (req, res) => {
-  const email = req.params.email
+router.get("/user/:email", (req, res) => {
+  const email = req.params.email;
   User.findUser(email)
-  .then((usr) => res.status(200).json(usr))
-  .catch((err) => console.log(err))
-})
+    .then((usr) => res.status(200).json(usr))
+    .catch((err) => console.log(err));
+});
+
+router.get("/username/:username", (req, res) => {
+  const username = req.params.username;
+  User.findByUsername(username)
+    .then((usr) => res.status(200).json(usr))
+    .catch((err) => console.log(err));
+});
+
 module.exports = router;

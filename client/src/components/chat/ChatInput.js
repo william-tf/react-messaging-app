@@ -1,29 +1,19 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  TextComposer,
-  TextInput,
-  IconButton,
-  SendButton,
-  Row,
-  Column,
-} from "@livechat/ui-kit";
+import { TextComposer, Row } from "@livechat/ui-kit";
 import { messageActions } from "../../store/ducks/messageDuck";
-import socketIOClient, { io } from "socket.io-client";
 const initialState = {
   messageText: "",
   userId: 0,
   chatId: 0,
 };
 
-export default function ChatInput() {
+export default function ChatInput(props) {
+  const { handleSocketSend } = props;
   const activeUser = useSelector((state) => state.user.activeUser[0]);
   const activeChat = useSelector((state) => state.chat.chat[0]);
   const [newMessage, setNewMessage] = useState(initialState);
-  const socketRef = useRef();
   const dispatch = useDispatch();
-  const SOCKET_URL = "http://localhost:8000";
-  const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -31,7 +21,6 @@ export default function ChatInput() {
   };
 
   const handleSubmit = () => {
-    socketRef.current = socketIOClient(SOCKET_URL);
     dispatch(
       messageActions.addMessageThunk({
         ...newMessage,
@@ -40,17 +29,10 @@ export default function ChatInput() {
       })
     );
 
-    // socket.on("connection", (activeUser) => {
-    //   console.log("client-side socket", activeUser);
-    // });
-    // socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
-
-    // })
-
-    socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
-      messageText: newMessage.messageText,
-      userId: activeUser.id,
+    handleSocketSend({
+      ...newMessage,
       chatId: activeChat.id,
+      userId: activeUser.id,
     });
 
     setNewMessage(initialState);

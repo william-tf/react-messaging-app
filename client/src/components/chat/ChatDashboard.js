@@ -1,34 +1,8 @@
-import React, {useEffect} from "react";
-import {
-  Avatar,
-  TitleBar,
-  TextInput,
-  MessageList,
-  Message,
-  MessageText,
-  AgentBar,
-  Title,
-  Subtitle,
-  MessageGroup,
-  MessageButtons,
-  MessageButton,
-  MessageTitle,
-  MessageMedia,
-  TextComposer,
-  Row,
-  Fill,
-  Fit,
-  IconButton,
-  FixedWrapper,
-  SendButton,
-  EmojiIcon,
-  CloseIcon,
-  Column,
-  RateGoodIcon,
-  RateBadIcon,
-  Bubble,
-} from "@livechat/ui-kit";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { FixedWrapper } from "@livechat/ui-kit";
+import { useSelector, useDispatch } from "react-redux";
+import { userActions } from "../../store/ducks/userDuck";
+import { messageActions } from "../../store/ducks/messageDuck";
 import ChatCard from "./Maximized";
 import Minimized from "./chatMinimzed";
 
@@ -36,13 +10,20 @@ import { io } from "socket.io-client";
 
 const ChatDashboard = () => {
   const activeUser = useSelector((state) => state.user.activeUser);
+  const activeChat = useSelector((state) => state.chat.chat);
 
-  useEffect(() => {
-    const socket = io("http://localhost:8000");
-    socket.on("connection", (activeUser) => {
-      console.log("client-side socket", activeUser);
-    });
-  }, []);
+  const dispatch = useDispatch();
+  const socket = io("http://localhost:8000");
+  socket.on("connection", (activeUser) => {
+    console.log("client-side socket", activeUser);
+  });
+  socket.on("client-message", () => {
+    dispatch(messageActions.getChatMessagesThunk(activeChat.id));
+  });
+
+  const handleSocketSend = (message) => {
+    socket.emit("newChatMessage", message);
+  };
 
   return (
     <FixedWrapper.Root>
@@ -51,7 +32,7 @@ const ChatDashboard = () => {
           maxWidth: "400 !important",
         }}
       >
-        <ChatCard />
+        <ChatCard handleSocketSend={handleSocketSend} />
       </FixedWrapper.Maximized>
       <FixedWrapper.Minimized active="false">
         <Minimized />

@@ -16,7 +16,43 @@ function addUser(user) {
 }
 
 function findUser(email) {
-  return db("users").where({email});
+  return db("users")
+    .select(
+      "users.username",
+      "users.id",
+      "users.email",
+      "users.profilePic",
+      "users.firstName",
+      "users.lastName"
+    )
+    .where({ email });
+}
+
+function findByUsername(username) {
+  return db("users")
+    .select(
+      "users.username",
+      "users.id",
+      "users.email",
+      "users.profilePic",
+      "users.firstName",
+      "users.lastName"
+    )
+    .where({ username });
+}
+
+function findByUsernameForLogin(username) {
+  return db("users")
+    .select(
+      "users.username",
+      "users.id",
+      "users.email",
+      "users.profilePic",
+      "users.firstName",
+      "users.lastName",
+      "users.password"
+    )
+    .where({ username });
 }
 
 async function addUser(user) {
@@ -37,4 +73,6 @@ module.exports = {
   delUser,
   updateUser,
   findById,
+  findByUsername,
+  findByUsernameForLogin,
 };

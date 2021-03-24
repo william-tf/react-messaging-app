@@ -5,7 +5,7 @@ import {
   getAllUsers,
   putExistingUserById,
   deleteUserById,
-  getUserByEmail
+  getUserByUsername,
 } from "../../components/utils/otherAxiosCalls";
 
 export const types = {
@@ -98,9 +98,9 @@ export const userActions = {
         dispatch({ type: types.GET_USER_RESOLVE });
       });
   },
-  getSingleUserByEmailThunk: (email) => (dispatch) => {
+  getUserByUsernameThunk: (username) => (dispatch) => {
     dispatch({ type: types.GET_ACTIVE_USER_START });
-    getUserByEmail(email)
+    getUserByUsername(username)
       .then((res) => {
         dispatch({ type: types.GET_ACTIVE_USER_SUCCESS, payload: res.data });
       })
@@ -161,7 +161,7 @@ const userReducer = (state = userInitialState, action) => {
       return {
         ...state,
         status: "post/success",
-        loggedIn: true
+        loggedIn: true,
       };
     case types.LOGIN_ERROR:
       return {
@@ -242,25 +242,25 @@ const userReducer = (state = userInitialState, action) => {
     case types.GET_ACTIVE_USER_START:
       return {
         ...state,
-        status:'get/pending'
-      }
+        status: "get/pending",
+      };
     case types.GET_ACTIVE_USER_SUCCESS:
       return {
         ...state,
         activeUser: action.payload,
-        status:'get/success'
-      }
+        status: "get/success",
+      };
     case types.GET_ACTIVE_USER_ERROR:
       return {
         ...state,
         error: action.payload,
-        status:'get/error'
-      }
+        status: "get/error",
+      };
     case types.GET_ACTIVE_USER_RESOLVE:
       return {
         ...state,
-        status:'idle'
-      }
+        status: "idle",
+      };
     case types.PUT_USER_START:
       return {
         ...state,
