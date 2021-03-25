@@ -13,6 +13,11 @@ const ChatDashboard = () => {
   const activeChat = useSelector((state) => state.chat.chat);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(userActions.getAllUsersThunk());
+  }, []);
+
   const socket = io("http://localhost:8000");
   socket.on("connection", (activeUser) => {
     console.log("client-side socket", activeUser);

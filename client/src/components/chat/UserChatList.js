@@ -50,7 +50,7 @@ function UserChatList({ minimize, props }) {
   useEffect(() => {
     //gets users chats
     dispatch(chatActions.getUserChatsThunk(activeUsurper[0].id));
-  }, []);
+  }, [activeUsurper]);
 
   console.log(searchResults);
 
@@ -58,17 +58,26 @@ function UserChatList({ minimize, props }) {
   //We need to fix this
   const avatarPic = activeUsurper.profilePic;
 
-  const onSearch = (e) => {
-    return users.filter(
-      (user) =>
-        user.firstName.toLowerCase().includes(searchString.toLowerCase()) ||
-        user.firstName.toLowerCase() === searchString.toLowerCase() ||
-        user.lastName.toLowerCase().includes(searchString.toLowerCase()) ||
-        user.lastName.toLowerCase() === searchString.toLowerCase() ||
-        user.username.includes(searchString) ||
-        user.username === searchString ||
-        user.email.includes(searchString) ||
-        user.email === searchString
+  const onSearch = (arr, query) => {
+    // let filter = [];
+    // filter = users.filter((user) =>
+    //   user.firstName.toLowerCase().includes(searchString.toLowerCase()) ||
+    //   user.firstName.toLowerCase() === searchString.toLowerCase() ||
+    //   user.lastName.toLowerCase().includes(searchString.toLowerCase()) ||
+    //   user.lastName.toLowerCase() === searchString.toLowerCase() ||
+    //   user.username.includes(searchString) ||
+    //   user.username === searchString ||
+    //   user.email.includes(searchString) ||
+    //   user.email === searchString
+    //     ? user
+    //     : null
+    // );
+    // setSearchResults(filter);
+    return setSearchResults(
+      searchResults.filter(
+        (el) =>
+          el.username.toLowerCase().indexOf(searchString.toLowerCase()) !== -1
+      )
     );
   };
 
@@ -85,8 +94,12 @@ function UserChatList({ minimize, props }) {
           <Form.Control
             type="text"
             onChange={(e) => {
+              console.log(e.target.value);
               setSearchString(e.target.value);
-              setSearchResults(onSearch(e));
+
+              setTimeout(() => {
+                onSearch(searchResults, searchString);
+              }, 30);
             }}
           />
         </InputGroup>
@@ -120,7 +133,6 @@ function UserChatList({ minimize, props }) {
               <IconButton
                 onClick={() => {
                   openModal();
-                  dispatch(userActions.getAllUsersThunk());
                 }}
               >
                 <i className="material-icons">add</i>
