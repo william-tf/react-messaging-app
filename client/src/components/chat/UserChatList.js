@@ -10,12 +10,7 @@ import {
   AgentBar,
   Title,
   Subtitle,
-  MessageGroup,
-  MessageButtons,
-  MessageButton,
-  MessageTitle,
-  MessageMedia,
-  TextComposer,
+ 
   Row,
   Fill,
   Fit,
@@ -37,8 +32,9 @@ import { chatActions } from "../../store/ducks/chatDuck";
 import { messageActions } from "../../store/ducks/messageDuck";
 import { userActions } from "../../store/ducks/userDuck";
 import { Modal, Button, InputGroup, Form } from "react-bootstrap";
+import SearchBar from './SearchBarDropDown'
 function UserChatList({ minimize, props }) {
-  const dispatch = useDispatch();
+const dispatch = useDispatch();
   const chats = useSelector((state) => state.chat.chats);
   const users = useSelector((state) => state.user.users);
   const status = useSelector((state) => state.chat.status);
@@ -87,22 +83,7 @@ function UserChatList({ minimize, props }) {
         <Modal.Header closeButton>
           <Modal.Title>New Chat</Modal.Title>
         </Modal.Header>
-        <InputGroup>
-          <InputGroup.Prepend>
-            <InputGroup.Text>@</InputGroup.Text>
-          </InputGroup.Prepend>
-          <Form.Control
-            type="text"
-            onChange={(e) => {
-              console.log(e.target.value);
-              setSearchString(e.target.value);
-
-              setTimeout(() => {
-                onSearch(searchResults, searchString);
-              }, 30);
-            }}
-          />
-        </InputGroup>
+        <SearchBar/>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModal}>
             Close
